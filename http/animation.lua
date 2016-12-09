@@ -20,6 +20,10 @@ return function (connection, req, args)
             buffer:set((i+8)%buffer:size()+1, 44, 239, 129)
             ws2812.write(buffer)
           end)
+      elseif rd.name == "fill" then  
+         print("Activating animation fill")
+         buffer:fill(rd.data[1], rd.data[2], rd.data[3])
+         ws2812.write(buffer)
       else
          dofile("httpserver-header.lc")(connection, 500, 'json')
          connection:send('unknown animation: ' .. args.name)

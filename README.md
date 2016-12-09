@@ -51,6 +51,18 @@ This testing should work always - even on ESP* - Access Point connection. <youri
 curl -H "Content-Type: application/json" -X POST -d '{"1":[23, 233, 112],"25":[223, 84, 122]}' http://<yourip>:80/leds.lua
 ```
 
+## Animations
+Few animations are supported, some of them need data, example call:
+```
+curl -H "Content-Type: application/json" -X POST -d '{"name":"fill", "data":[42,42,42]}' http://<yourip>:80/animation.lua
+```
+
+* buzzer
+* doublebuzzer
+* fill - data = [r,g,b]
+
+
+
 ## Currently not working/in progress/ideas
 
 - RGBW Stripes
