@@ -58,11 +58,4 @@ curl -H "Content-Type: application/json" -X POST -d '{"1":[23, 233, 112],"25":[2
 - make Buffer configurable
 - add Animations
 
-### Make following Chapter work:
 
-Get to work:
-Erase Flash & Flash Files - make
-Connect to Wlan network
-execute curl to configure wlan (does a persistence setup - if it breaks, you need to re-set firmware)
-
-If there are any problems, try restarting, especially after flashing steps.
