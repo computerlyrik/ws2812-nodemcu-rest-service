@@ -2,18 +2,12 @@
 ...facing exactly this setup.
 
 Based on https://github.com/marcoskirsch/nodemcu-httpserver
+
 Find out more about the HTTP-Server itself and File uploading processes
 
-
-test http rest:
-
-curl -H "Content-Type: application/json" -X POST -d '{"1":[23, 233, 112],"25":[223, 84, 122]}' http://192.168.0.60:80/led.lua
-
-
 ## Features
-- Supports RGB Stripes with WS2812(b) LED chips
-
-
+- [POST] Supports RGB Stripes with WS2812(b) LED chips
+- [GET] Reset leds (current testing purpose only)
 
 
 ## Prerequisites 
@@ -35,14 +29,14 @@ Currently [nodemcu-uploader](https://github.com/kmpm/nodemcu-uploader) as mentio
 curl -H "Content-Type: application/json" -X POST -d '{"1":[23, 233, 112],"25":[223, 84, 122]}' http://<yourip>:80/stripe.lua
 ```
 
-Currently not working/in progress
+## Currently not working/in progress/ideas
 
 - RGBW Stripes
 - set all LEDs at once
 - make Buffer configurable
 - add Animations
 
-Make following Chapter work:
+### Make following Chapter work:
 
 Get to work:
 Erase Flash & Flash Files - make
