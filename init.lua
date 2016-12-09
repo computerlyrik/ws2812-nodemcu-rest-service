@@ -98,8 +98,12 @@ if (wifi.getmode() == wifi.STATION) or (wifi.getmode() == wifi.STATIONAP) then
     end)
 end
 
+ws2812.init()
+buffer = ws2812.newBuffer(144, 3)
+buffer:fill(0, 0, 0)
+
 -- Uncomment to automatically start the server in port 80
 if (not not wifi.sta.getip()) or (not not wifi.ap.getip()) then
-    --dofile("httpserver.lc")(80)
+    dofile("httpserver.lc")(80)
 end
 

@@ -6,8 +6,8 @@ Based on https://github.com/marcoskirsch/nodemcu-httpserver
 Find out more about the HTTP-Server itself and File uploading processes
 
 ## Features
-- [POST] Supports RGB Stripes with WS2812(b) LED chips
-- [GET] Reset leds (current testing purpose only)
+- [POST] Supports RGB Stripes with WS2812(b) LED chip (up to 144 led hard set)
+- [GET] Reset leds to low brightness (current testing purpose only)
 
 
 ## Prerequisites 
@@ -26,7 +26,7 @@ Currently [nodemcu-uploader](https://github.com/kmpm/nodemcu-uploader) as mentio
 
 ## Test
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"1":[23, 233, 112],"25":[223, 84, 122]}' http://<yourip>:80/stripe.lua
+curl -H "Content-Type: application/json" -X POST -d '{"1":[23, 233, 112],"25":[223, 84, 122]}' http://<yourip>:80/leds.lua
 ```
 
 ## Currently not working/in progress/ideas
