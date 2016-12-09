@@ -4,7 +4,7 @@
 # Path to nodemcu-uploader (https://github.com/kmpm/nodemcu-uploader)
 NODEMCU-UPLOADER=../nodemcu-uploader/nodemcu-uploader.py
 # Serial port
-PORT=/dev/cu.SLAB_USBtoUART
+PORT=/dev/ttyUSB0
 SPEED=9600
 
 NODEMCU-COMMAND=$(NODEMCU-UPLOADER) -b $(SPEED) --start_baud $(SPEED) -p $(PORT) upload
