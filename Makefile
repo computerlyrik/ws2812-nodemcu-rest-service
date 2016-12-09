@@ -35,17 +35,17 @@ usage:
 
 # Upload one files only
 upload:
-	@python $(NODEMCU-COMMAND) $(FILE)
+	@python2 $(NODEMCU-COMMAND) $(FILE)
 
 # Upload HTTP files only
 upload_http: $(HTTP_FILES)
-	@python $(NODEMCU-COMMAND) $(foreach f, $^, $(f))
+	@python2 $(NODEMCU-COMMAND) $(foreach f, $^, $(f))
 
 # Upload httpserver lua files (init and server module)
 upload_server: $(LUA_FILES)
-	@python $(NODEMCU-COMMAND) $(foreach f, $^, $(f))
+	@python2 $(NODEMCU-COMMAND) $(foreach f, $^, $(f))
 
 # Upload all
 upload_all: $(LUA_FILES) $(HTTP_FILES)
-	@python $(NODEMCU-COMMAND) $(foreach f, $^, $(f))
+	@python2 $(NODEMCU-COMMAND) $(foreach f, $^, $(f))
 
