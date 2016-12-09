@@ -10,6 +10,16 @@ return function (connection, req, args)
             buffer:set(i%buffer:size()+1, 44, 239, 129)
             ws2812.write(buffer)
           end)
+      elseif rd.name == "doublebuzz" then  
+         print("Activating animation doublebuzz")
+         buffer:fill(0, 0, 0)
+         tmr.alarm(0, 20, 1, function()
+            i=i+1
+            buffer:fade(2)
+            buffer:set(i%buffer:size()+1, 44, 239, 129)
+            buffer:set((i+8)%buffer:size()+1, 44, 239, 129)
+            ws2812.write(buffer)
+          end)
       else
          dofile("httpserver-header.lc")(connection, 500, 'json')
          connection:send('unknown animation: ' .. args.name)
