@@ -24,6 +24,7 @@ LUA_FILES := \
    httpserver-header.lua \
    httpserver-request.lua \
    httpserver-static.lua \
+   ws2812-init.lua \
 
 # Print usage
 usage:

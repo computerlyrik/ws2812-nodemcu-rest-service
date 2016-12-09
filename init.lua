@@ -20,6 +20,19 @@ wifiConfig.stationPointConfig = {}
 wifiConfig.stationPointConfig.ssid = "Internet"        -- Name of the WiFi network you want to join
 wifiConfig.stationPointConfig.pwd =  ""                -- Password for the WiFi network
 
+local wifi_defaultconfig = wifi.sta.getdefaultconfig(true)
+if (wifi_defaultconfig ~= nil) 
+ and (wifi_defaultconfig.ssid ~= "") 
+ and (wifi_defaultconfig.ssid ~= "Internet")
+ then
+  print("Restoring saved WLAN state")
+  print(tostring(wifi_defaultconfig))
+  wifiConfig.mode = wifi.STATION
+  wifiConfig.stationPointConfig.ssid = wifi_defaultconfig.ssid
+  wifiConfig.stationPointConfig.pwd = wifi_defaultconfig.pwd
+end
+
+ 
 -- Tell the chip to connect to the access point
 
 wifi.setmode(wifiConfig.mode)
@@ -38,6 +51,7 @@ end
 print('chip: ',node.chipid())
 print('heap: ',node.heap())
 
+wifi_defaultconfig = nil
 wifiConfig = nil
 collectgarbage()
 
@@ -65,7 +79,9 @@ local serverFiles = {
    'httpserver-error.lua',
    'httpserver-header.lua',
    'httpserver-request.lua',
-   'httpserver-static.lua',
+   'httpserver-static.lua',   
+   'ws2812-init.lua',
+
 }
 for i, f in ipairs(serverFiles) do compileAndRemoveIfNeeded(f) end
 
@@ -98,12 +114,8 @@ if (wifi.getmode() == wifi.STATION) or (wifi.getmode() == wifi.STATIONAP) then
     end)
 end
 
-ws2812.init()
-buffer = ws2812.newBuffer(144, 3)
-buffer:fill(0, 0, 0)
+dofile("ws2812-init.lc")
 
--- Uncomment to automatically start the server in port 80
-if (not not wifi.sta.getip()) or (not not wifi.ap.getip()) then
-    dofile("httpserver.lc")(80)
-end
+dofile("httpserver.lc")(80)
+
 
