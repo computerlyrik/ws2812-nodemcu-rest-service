@@ -85,8 +85,17 @@ local serverFiles = {
 }
 for i, f in ipairs(serverFiles) do compileAndRemoveIfNeeded(f) end
 
+local animationFiles = {
+   'animation/buzz.lua',
+   'animation/doublebuzz.lua',
+   'animation/fill.lua',
+   'animation/fire.lua',
+}
+for i, f in ipairs(animationFiles) do compileAndRemoveIfNeeded(f) end
+
 compileAndRemoveIfNeeded = nil
 serverFiles = nil
+animationFiles = nil
 collectgarbage()
 
 -- Connect to the WiFi access point.

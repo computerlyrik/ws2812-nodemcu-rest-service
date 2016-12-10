@@ -26,6 +26,8 @@ LUA_FILES := \
    httpserver-static.lua \
    ws2812-init.lua \
 
+ANIMATION_FILES := $(wildcard animation/*)
+
 # Print usage
 usage:
 	@echo "make upload FILE:=<file>  to upload a specific file (i.e make upload FILE:=init.lua)"
@@ -46,7 +48,10 @@ upload_http: $(HTTP_FILES)
 upload_server: $(LUA_FILES)
 	@python2 $(NODEMCU-COMMAND) $(foreach f, $^, $(f))
 
-# Upload all
-upload_all: $(LUA_FILES) $(HTTP_FILES)
+# Upload httpserver lua files (init and server module)
+upload_animations: $(ANIMATION_FILES)
 	@python2 $(NODEMCU-COMMAND) $(foreach f, $^, $(f))
+
+# Upload all
+upload_all: upload_server upload_http upload_animations
 
