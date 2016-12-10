@@ -17,7 +17,7 @@ Find out more about the HTTP-Server itself and File uploading processes
 Make sure modules are built in.
 For convenience i added a working firmware file built by [the NodeMCU build service](https://nodemcu-build.com/index.php)
 and includes the following modules
-`cjson file gpio http mdns net node tmr uart wifi ws2812`
+`bit cjson file gpio http net node tmr uart wifi ws2812`
 
 ### Uploader-Software
 
