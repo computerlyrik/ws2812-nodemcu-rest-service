@@ -32,7 +32,7 @@ This repository is prepared to use this as a submodule. To install just type `gi
   * upload flash using `make upload_all`
   * *restart node*
 2. Setup Wifi
-  * Connect to ESP* Wifi. Password is same as AP.
+  * Connect to ESP-* Wifi. Password is same as AP.
   * Setup your wifi settings ```curl -H "Content-Type: application/json" -X POST -d '{"ssid":"yourssid", "password":"yourpassword"}' http://192.168.111.1:80/setup.lua```
   * *restart node*
   * get <yourip> by asking your wifi system (or using console)
