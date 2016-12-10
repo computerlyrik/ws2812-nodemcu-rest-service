@@ -123,7 +123,7 @@ if (wifi.getmode() == wifi.STATION) or (wifi.getmode() == wifi.STATIONAP) then
     end)
 end
 
-dofile("ws2812-init.lc")(144, 3)
+dofile("ws2812-init.lc")
 
 dofile("httpserver.lc")(80)
 

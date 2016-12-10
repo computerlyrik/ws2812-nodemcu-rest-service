@@ -3,8 +3,8 @@ return function (connection, req, args)
 
       local rd = req.getRequestData()
       local wifi_config = {}
-      wifi_config.ssid = rd['ssid'] 
-      wifi_config.pwd =  rd['password']
+      wifi_config.ssid = rd.ssid
+      wifi_config.pwd =  rd.password
       wifi_config.save = true
       print('setup wifi:' .. wifi_config.ssid .. ' : ' .. wifi_config.pwd)
       wifi.sta.config(wifi_config)

@@ -5,7 +5,7 @@ return function (connection, req, args)
     -- reset possible running animation
     tmr.stop(0)
     buffer:fill(0, 0, 0)
-    animation_data = nil
+    animationData = nil
 
     local filename = "animation/"..rd.name..".lc"
     if file.exists(filename) then
