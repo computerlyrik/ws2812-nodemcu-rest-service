@@ -1,13 +1,12 @@
 return function (connection, req, args)
    if req.method == "POST" then
-      dofile("httpserver-header.lc")(connection, 200, 'json')
       local rd = req.getRequestData()
-      connection:send('<h2>Received the following values:</h2>')
-      for name, value in pairs(rd) do
-          connection:send(name .. '->' .. value[1] .. ', ' .. value[2] .. ', ' .. value[3] .. "\n")
-          buffer:set(name, value[1], value[2], value[3])
+      for lednumber, value in pairs(rd) do
+          buffer:set(lednumber, value[1], value[2], value[3])
       end
       ws2812.write(buffer)
+      dofile("httpserver-header.lc")(connection, 200, 'json')
+      connection:send('{"status": "OK"}')
    elseif req.method == "GET" then
       dofile("httpserver-header.lc")(connection, 500)
       connection:send("GET not implemented")
