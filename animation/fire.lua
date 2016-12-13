@@ -5,51 +5,47 @@ return function (rgbdata, speed)
   buffer:fill(rgbdata[1], rgbdata[2], rgbdata[3])
   ws2812.write(buffer)
 
-  local cooling = 50
-  local sparking = 120
-
-
   animationData.heat = {}
   for i=1, buffer:size() do
     animationData.heat[i] = 0
   end
 
-  tmr.alarm(0, speed, tmr.ALARM_AUTO, function()
+  local cooling = ( 700 / #animationData.heat ) + 2
+  local sparking = 120
+  local firecore = #animationData.heat/7
 
-    
-    -- 1. Cooldown each led
+  tmr.alarm(0, speed, tmr.ALARM_AUTO, function()
+    local cooldown = math.random(0, cooling) 
+
     for led = 1, #animationData.heat do
-      local cooldown = math.random(0, ((cooling * 10) /  #animationData.heat ) + 2) 
-      if cooldown > animationData.heat[led]  then
+      if cooldown >= animationData.heat[led]  then
         animationData.heat[led]=0;
       else 
         animationData.heat[led]=animationData.heat[led]-cooldown
       end
     end
 
-    -- 2. move each led up and diffuse
     for led = #animationData.heat, 3, -1 do
-      animationData.heat[led] = (animationData.heat[led - 1] + animationData.heat[led - 2] + animationData.heat[led - 2]) / 3;
+      animationData.heat[led] = (animationData.heat[led - 1] + animationData.heat[led - 2] + animationData.heat[led - 2]) / 3
     end
 
-    -- 3. initiate sparks
-    if math.random(255) < sparking then
-      local y = math.random(1,8);
+
+    local y = math.random(1,firecore*2)
+    if y < firecore then
       animationData.heat[y] = animationData.heat[y] + math.random(160,255)
     end
 
-    -- 4. calculate led colors from heat
     for led = 1, #animationData.heat do
-      local t192 = (animationData.heat[led]*191)/255
+      local t192 = (animationData.heat[led]/255)*191
       local heatramp = bit.band(t192, 63)
       heatramp = bit.lshift(heatramp, 2)
 
-      if heatramp <= 0x40 then
-        buffer:set(led, 0, heatramp, 0)
-      elseif heatramp <= 0x80 then
-        buffer:set(led, heatramp, 255, 0) 
+      if bit.band(heatramp, 0x80) > 0 then
+        buffer:set(led, 128, 128, heatramp)
+      elseif bit.band(heatramp, 0x40) > 0 then
+        buffer:set(led, heatramp, 128, 0) 
       else
-        buffer:set(led, 255, 255, heatramp)
+        buffer:set(led, 0, heatramp, 0)
       end
 
     end
