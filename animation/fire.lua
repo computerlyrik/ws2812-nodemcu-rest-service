@@ -7,24 +7,28 @@ return function (rgbdata, speed)
 
   local cooling = 50
   local sparking = 120
-  local numleds = buffer:size()
+
 
   animationData.heat = {}
-  for i=1, numleds do
+  for i=1, buffer:size() do
     animationData.heat[i] = 0
   end
 
   tmr.alarm(0, speed, tmr.ALARM_AUTO, function()
-    print('mem '..node.heap())
-    local cooldown = math.random(0, ((cooling * 10) /  #animationData.heat ) + 2);
+
     
     -- 1. Cooldown each led
     for led = 1, #animationData.heat do
-      animationData.heat[led] = math.max(0, animationData.heat[led]-cooldown)
+      local cooldown = math.random(0, ((cooling * 10) /  #animationData.heat ) + 2) 
+      if cooldown > animationData.heat[led]  then
+        animationData.heat[led]=0;
+      else 
+        animationData.heat[led]=animationData.heat[led]-cooldown
+      end
     end
 
     -- 2. move each led up and diffuse
-    for led = 3, #animationData.heat do
+    for led = #animationData.heat, 3, -1 do
       animationData.heat[led] = (animationData.heat[led - 1] + animationData.heat[led - 2] + animationData.heat[led - 2]) / 3;
     end
 
@@ -36,16 +40,14 @@ return function (rgbdata, speed)
 
     -- 4. calculate led colors from heat
     for led = 1, #animationData.heat do
-      local t192 = (animationData.heat[led]/255)*191
+      local t192 = (animationData.heat[led]*191)/255
       local heatramp = bit.band(t192, 63)
       heatramp = bit.lshift(heatramp, 2)
 
-      -- print(led .. " > " .. heatramp)
-
       if heatramp <= 0x40 then
-        buffer:set(led, heatramp, 0, 0)
+        buffer:set(led, 0, heatramp, 0)
       elseif heatramp <= 0x80 then
-        buffer:set(led, 255, heatramp, 0) 
+        buffer:set(led, heatramp, 255, 0) 
       else
         buffer:set(led, 255, 255, heatramp)
       end
